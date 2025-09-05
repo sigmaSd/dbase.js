@@ -2,7 +2,8 @@
 
 Fast dBase (.dbf) file parser with memo support for Node.js, Deno, and browsers.
 
-Built with WebAssembly for maximum performance while maintaining compatibility across JavaScript runtimes.
+Built with WebAssembly for maximum performance while maintaining compatibility
+across JavaScript runtimes.
 
 ## Features
 
@@ -24,7 +25,8 @@ import { read, readData } from "jsr:@sigma/dbase";
 
 ### Browsers and runtimes without WASM import support
 
-For browsers and runtimes that don't support WebAssembly imports yet, use the inline version:
+For browsers and runtimes that don't support WebAssembly imports yet, use the
+inline version:
 
 ```typescript
 import { read, readData } from "jsr:@sigma/dbase/inline";
@@ -54,7 +56,7 @@ const records = read("./data.dbf");
 const records = read("./data.dbf", "cp1252");
 
 console.log(`Found ${records.length} records`);
-records.forEach(record => {
+records.forEach((record) => {
   console.log(record.NAME, record.DATE);
 });
 ```
@@ -66,7 +68,9 @@ import { readData } from "jsr:@sigma/dbase";
 
 // Read files into buffers first (example with File API)
 const dbfBuffer = new Uint8Array(await dbfFile.arrayBuffer());
-const memoBuffer = memoFile ? new Uint8Array(await memoFile.arrayBuffer()) : undefined;
+const memoBuffer = memoFile
+  ? new Uint8Array(await memoFile.arrayBuffer())
+  : undefined;
 
 // Parse the data
 const records = readData(dbfBuffer, memoBuffer);
@@ -81,18 +85,23 @@ console.log(`Found ${records.length} records`);
 <input type="file" id="memoFile" accept=".fpt,.dbt">
 
 <script type="module">
-import { readData } from "https://esm.sh/jsr/@sigma/dbase/inline";
+  import { readData } from "https://esm.sh/jsr/@sigma/dbase/inline";
 
-document.getElementById('dbfFile').addEventListener('change', async (e) => {
-  const dbfFile = e.target.files[0];
-  const memoFile = document.getElementById('memoFile').files[0];
+  document.getElementById("dbfFile").addEventListener(
+    "change",
+    async (e) => {
+      const dbfFile = e.target.files[0];
+      const memoFile = document.getElementById("memoFile").files[0];
 
-  const dbfBuffer = new Uint8Array(await dbfFile.arrayBuffer());
-  const memoBuffer = memoFile ? new Uint8Array(await memoFile.arrayBuffer()) : undefined;
+      const dbfBuffer = new Uint8Array(await dbfFile.arrayBuffer());
+      const memoBuffer = memoFile
+        ? new Uint8Array(await memoFile.arrayBuffer())
+        : undefined;
 
-  const records = readData(dbfBuffer, memoBuffer);
-  console.log('Parsed records:', records);
-});
+      const records = readData(dbfBuffer, memoBuffer);
+      console.log("Parsed records:", records);
+    },
+  );
 </script>
 ```
 
@@ -103,8 +112,10 @@ document.getElementById('dbfFile').addEventListener('change', async (e) => {
 Reads a dBase file from disk, automatically detecting and loading memo files.
 
 **Parameters:**
+
 - `dbfPath`: Path to the .dbf file
-- `encoding`: Text encoding ("utf8" | "cp850" | "cp1252" | "ascii"). Defaults to "cp850"
+- `encoding`: Text encoding ("utf8" | "cp850" | "cp1252" | "ascii"). Defaults to
+  "cp850"
 
 **Returns:** Array of record objects
 
@@ -112,12 +123,15 @@ Reads a dBase file from disk, automatically detecting and loading memo files.
 
 ### `readData(dbData: Uint8Array, memoData?: Uint8Array, encoding?: Encoding): DbfRecord[]`
 
-Reads dBase data from memory buffers without file I/O. Works in all environments including browsers.
+Reads dBase data from memory buffers without file I/O. Works in all environments
+including browsers.
 
 **Parameters:**
+
 - `dbData`: The DBF file content as Uint8Array
 - `memoData`: Optional memo file content as Uint8Array
-- `encoding`: Text encoding ("utf8" | "cp850" | "cp1252" | "ascii"). Defaults to "cp850"
+- `encoding`: Text encoding ("utf8" | "cp850" | "cp1252" | "ascii"). Defaults to
+  "cp850"
 
 **Returns:** Array of record objects
 
@@ -131,17 +145,17 @@ type DbfRecord = Record<string, string | number | boolean | Date | null>;
 
 ## Supported Field Types
 
-| dBase Type | JavaScript Type | Description |
-|------------|-----------------|-------------|
-| Character  | string          | Text fields |
-| Numeric    | number          | Numbers with decimals |
-| Date       | Date            | Date values |
-| Logical    | boolean         | True/false values |
+| dBase Type | JavaScript Type | Description                    |
+| ---------- | --------------- | ------------------------------ |
+| Character  | string          | Text fields                    |
+| Numeric    | number          | Numbers with decimals          |
+| Date       | Date            | Date values                    |
+| Logical    | boolean         | True/false values              |
 | Memo       | string          | Long text from .fpt/.dbt files |
-| Float      | number          | Floating point numbers |
-| Integer    | number          | Whole numbers |
-| Currency   | number          | Currency values |
-| DateTime   | Date            | Date and time values |
+| Float      | number          | Floating point numbers         |
+| Integer    | number          | Whole numbers                  |
+| Currency   | number          | Currency values                |
+| DateTime   | Date            | Date and time values           |
 
 ## Encoding Support
 
@@ -171,10 +185,13 @@ try {
 ## Browser vs Runtime Support
 
 ### Deno (Recommended)
+
 Use the default export - Deno has native WebAssembly import support.
 
 ### Browsers and Other Runtimes
-Use the `/inline` export which includes the WebAssembly code inline. This is larger but works everywhere.
+
+Use the `/inline` export which includes the WebAssembly code inline. This is
+larger but works everywhere.
 
 ## License
 
@@ -192,6 +209,7 @@ This library is built with Rust and compiled to WebAssembly. To contribute:
 ## Changelog
 
 ### 0.1.0
+
 - Initial release
 - Support for all dBase field types
 - Automatic memo file detection
