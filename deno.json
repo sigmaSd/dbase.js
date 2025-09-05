@@ -1,6 +1,6 @@
 {
   "name": "@sigma/dbase",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "exports": {
     ".": "./src_js/mod.ts",
     "./inline": "./src_js/mod_inline.ts"

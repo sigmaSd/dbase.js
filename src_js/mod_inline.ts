@@ -17,7 +17,7 @@
  */
 
 import { readFileSync } from "node:fs";
-import { dbf_needs_memo, read_dbf_with_types } from "../lib/dbase_js.js";
+import { dbf_needs_memo, read_dbf_with_types } from "../lib_inline/dbase_js.js";
 import process from "node:process";
 
 /**
