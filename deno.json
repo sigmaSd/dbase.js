@@ -3,11 +3,17 @@
   "version": "0.1.0",
   "exports": {
     ".": "./src_js/mod.ts",
-    "inline": "./src_js/mod_inline.ts"
+    "./inline": "./src_js/mod_inline.ts"
   },
-  "license": "MIT",
   "tasks": {
     "wasmbuild": "deno run -A jsr:@deno/wasmbuild@0.19.2",
     "wasmbuild:inline": "deno task wasmbuild --inline --out lib_inline && deno -RW ./scripts/gen_mod_inline.ts"
+  },
+  "publish": {
+    "exclude": [
+      "src/",
+      "Cargo.toml",
+      "Cargo.lock"
+    ]
   }
 }
