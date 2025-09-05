@@ -1,7 +1,33 @@
+/**
+ * Fast dBase (.dbf) file parser with memo support for Node.js, Deno, and browsers.
+ *
+ * This module provides functions to read dBase files with full support for memo fields,
+ * multiple encodings, and all dBase field types. Works in any JavaScript environment.
+ *
+ * @example
+ * ```typescript
+ * // Async file reading (recommended)
+ * const records = await read("./data.dbf");
+ *
+ * // Buffer-based parsing (works in browsers)
+ * const records = readDbfData(dbfBuffer, memoBuffer);
+ * ```
+ *
+ * @module
+ */
+
 import { readFileSync } from "node:fs";
 import { dbf_needs_memo, read_dbf_with_types } from "../lib/dbase_js.js";
 import process from "node:process";
 
+/**
+ * Supported text encoding options for reading dBase files.
+ *
+ * - `"utf8"` - Unicode UTF-8 encoding for modern international text
+ * - `"cp850"` - DOS Latin-1 (default) - most common for legacy dBase files
+ * - `"cp1252"` - Windows Latin-1 - used by Windows applications
+ * - `"ascii"` - Basic ASCII encoding for English-only legacy files
+ */
 export type Encoding = "utf8" | "cp850" | "cp1252" | "ascii";
 
 /** A record from a dBase file - object with string keys and various value types */
